@@ -24,6 +24,16 @@ class Game {
       В случае правильного ввода слова вызываем this.success()
       При неправильном вводе символа - this.fail();
      */
+     window.onkeydown = e =>{
+      if( !e.altKey && !(e.shiftKey && e.altKey) ){
+        console.log(e.altKey)
+        if(this.currentSymbol.textContent.toLowerCase() === e.key){
+          this.success()
+        } else {
+          this.fail()
+        }
+      }
+    }
   }
 
   success() {
@@ -83,6 +93,22 @@ class Game {
     this.wordElement.innerHTML = html;
 
     this.currentSymbol = this.wordElement.querySelector('.symbol_current');
+
+    this.setTimer(word)
+  }
+
+  setTimer(word){
+    clearInterval(this.timer)
+    let time = document.querySelector('.timer')
+    let curTime = word.length
+    time.textContent = curTime
+    this.timer = setInterval( () => {
+      curTime--
+      time.textContent = curTime
+      if(curTime === 0){
+        this.fail()
+      }
+    }, 1000)
   }
 }
 
