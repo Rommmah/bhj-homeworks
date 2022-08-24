@@ -8,10 +8,6 @@ window.onscroll = e => {
 		
 		if(bottom > 0 && bottom < clientHeight){
 			reveal.classList.add('reveal_active')
-		} else {
-			reveal.classList.remove('reveal_active')			
 		}
-		
-
 	}
 }
