@@ -11,7 +11,6 @@ window.onscroll = e => {
 		} else {
 			reveal.classList.remove('reveal_active')			
 		}
-		
 
 	}
 }
