@@ -81,12 +81,21 @@ class Autocomplete {
         value: 'Содержимое атрибута value'
       }
     */
-    return [
-      {
-        text: 'Чубакка',
-        value: '1'
+    let options = this.input.options
+    let matchedVariants = [];
+    for(let opt of options){
+      if( opt.innerText.toLowerCase().includes( this.searchInput.value.toLowerCase() )  ){
+        matchedVariants.push({text: opt.innerText, value: opt.index})
       }
-    ];
+    }
+
+    return matchedVariants;
+    // return [
+    //   {
+    //     text: 'Чубакка',
+    //     value: '1'
+    //   }
+    // ];
   }
 }
 
