@@ -3,7 +3,7 @@ const todoList = document.querySelector('#tasks__list')
 const todoInput = document.querySelector('#task__input')
 
 if(localStorage.todo){
-	for(let todo of localStorage.todo.split(', ') ){
+	for(let todo of JSON.parse(localStorage.todo) ){
 		addTodo(todo)
 	}
 }
@@ -11,14 +11,15 @@ if(localStorage.todo){
 addBtn.addEventListener('click', e => {
 	e.preventDefault()
 
-	if(todoInput.value !== ''){
+	if(todoInput.value.trim() !== ''){
 		addTodo(todoInput.value)
 
-		if(localStorage.todo){
-			localStorage.todo = localStorage.todo + ', ' + todoInput.value	
-		} else {
-			localStorage.todo = todoInput.value
-		}
+		if(!localStorage.todo){
+			localStorage.todo = JSON.stringify([])
+		} 
+		let storage = JSON.parse(localStorage.todo)
+		storage.push(todoInput.value)
+		localStorage.todo = JSON.stringify( storage )	
 	}
 
 
@@ -29,9 +30,9 @@ addBtn.addEventListener('click', e => {
 
 
 function removeItem(elem){
-	let deletingValue = elem.previousElementSibling.innerText
-	let newList = localStorage.todo.split(', ').filter( item => item !== deletingValue)
-	localStorage.todo = newList.join(', ')
+	let deletingValue = elem.previousElementSibling.textContent
+	let newList = JSON.parse(localStorage.todo).filter( item => item.trim() != deletingValue.trim() )
+	localStorage.todo = JSON.stringify(newList)
 	
 	elem.parentElement.remove()
 }

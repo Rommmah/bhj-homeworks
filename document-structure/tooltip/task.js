@@ -7,10 +7,12 @@ for(let elem of elemsWithTooltip){
 	elem.addEventListener('click', e =>{
 		e.preventDefault()
 
-		removeActive()
-
 		let toolTip = elem.nextElementSibling
-		toolTip.classList.add('tooltip_active')
+		if(!toolTip.classList.contains('tooltip_active')){
+			removeActive()
+		}
+
+		toolTip.classList.toggle('tooltip_active')
 		let tipWidth = toolTip.getBoundingClientRect().width
 		let tipHeight = toolTip.getBoundingClientRect().height
 
